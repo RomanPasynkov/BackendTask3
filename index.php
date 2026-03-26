@@ -43,6 +43,15 @@ $errors = [];
 $successMessage = null;
 $dbError = null;
 
+function stringLength(string $value): int
+{
+    if (function_exists('mb_strlen')) {
+        return mb_strlen($value);
+    }
+
+    return strlen($value);
+}
+
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $values['full_name'] = trim((string) ($_POST['full_name'] ?? ''));
     $values['phone'] = trim((string) ($_POST['phone'] ?? ''));
@@ -55,7 +64,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
     if ($values['full_name'] === '') {
         $errors['full_name'] = 'Укажите ФИО.';
-    } elseif (mb_strlen($values['full_name']) > 150) {
+    } elseif (stringLength($values['full_name']) > 150) {
         $errors['full_name'] = 'ФИО не должно превышать 150 символов.';
     } elseif (!preg_match('/^[\p{L}\s-]+$/u', $values['full_name'])) {
         $errors['full_name'] = 'ФИО должно содержать только буквы, пробелы и дефис.';
@@ -71,7 +80,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $errors['email'] = 'Укажите e-mail.';
     } elseif (!filter_var($values['email'], FILTER_VALIDATE_EMAIL)) {
         $errors['email'] = 'Введите корректный e-mail.';
-    } elseif (mb_strlen($values['email']) > 255) {
+    } elseif (stringLength($values['email']) > 255) {
         $errors['email'] = 'E-mail не должен превышать 255 символов.';
     }
 
