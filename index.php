@@ -5,7 +5,7 @@ declare(strict_types=1);
 set_time_limit(10);
 ini_set('default_socket_timeout', '5');
 
-const DB_HOST = '127.0.0.1';
+const DB_HOST = 'localhost';
 const DB_PORT = '3306';
 const DB_NAME = 'u82295';
 const DB_USER = 'u82295';
