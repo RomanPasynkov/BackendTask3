@@ -2,6 +2,9 @@
 
 declare(strict_types=1);
 
+set_time_limit(10);
+ini_set('default_socket_timeout', '5');
+
 const DB_HOST = '127.0.0.1';
 const DB_PORT = '3306';
 const DB_NAME = 'u82295';
@@ -200,7 +203,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 $pdo->rollBack();
             }
 
-            $dbError = 'Не удалось сохранить данные. Проверьте настройки подключения к БД и импорт схемы.';
+            $dbError = 'Не удалось сохранить данные: ' . $exception->getMessage();
         }
     }
 }
