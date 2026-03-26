@@ -4,9 +4,9 @@ declare(strict_types=1);
 
 const DB_HOST = '127.0.0.1';
 const DB_PORT = '3306';
-const DB_NAME = 'task3_form';
-const DB_USER = 'root';
-const DB_PASSWORD = '';
+const DB_NAME = 'u82295';
+const DB_USER = 'u82295';
+const DB_PASSWORD = '7819341';
 
 $availableLanguages = [
     'Pascal',
@@ -124,7 +124,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
     if ($values['biography'] === '') {
         $errors['biography'] = 'Напишите биографию.';
-    } elseif (mb_strlen($values['biography']) > 2000) {
+    } elseif (stringLength($values['biography']) > 2000) {
         $errors['biography'] = 'Биография не должна превышать 2000 символов.';
     }
 
@@ -139,6 +139,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 DB_USER,
                 DB_PASSWORD,
                 [
+                    PDO::ATTR_TIMEOUT => 5,
                     PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION,
                     PDO::ATTR_DEFAULT_FETCH_MODE => PDO::FETCH_ASSOC,
                 ]
